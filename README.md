@@ -26,6 +26,22 @@ streamlit run app.py
 4. 정기보고서의 "상세 보기"를 누르면 요약재무제표·임직원 현황 표가 표시됨
 5. 최근 조회 기간 내 정기보고서가 없으면 "가장 최근 정기보고서 찾기" 버튼으로 최대 15개월 전까지 탐색 가능
 
+## 배포 (Streamlit Community Cloud)
+
+Streamlit 앱은 상시 연결(웹소켓)이 필요해 Vercel 같은 서버리스 플랫폼과는 맞지 않습니다.
+대신 무료인 Streamlit Community Cloud를 사용합니다.
+
+1. 이 저장소를 GitHub에 push (완료된 상태라면 생략)
+2. https://share.streamlit.io 접속 후 GitHub 계정으로 로그인
+3. "New app" → 이 저장소 선택 → Branch: `main`, Main file path: `app.py`
+4. 배포 전 **Advanced settings → Secrets**에 아래 내용 입력 (TOML 형식)
+   ```toml
+   DART_API_KEY = "발급받은_인증키"
+   ```
+5. "Deploy" 클릭. 앱이 빌드되면 `https://<app-name>.streamlit.app` 형태의 URL이 발급됨
+
+> 로컬 `.env`와 Streamlit Cloud의 `secrets.toml` 둘 다 자동으로 인식하도록 `app.py`가 작성되어 있습니다.
+
 ## 폴더 구조
 
 ```

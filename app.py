@@ -17,9 +17,20 @@ load_dotenv()
 st.set_page_config(page_title="DART 공시 자동 정리", page_icon="📄", layout="wide")
 
 
+def _get_api_key() -> str | None:
+    """로컬(.env)과 Streamlit Cloud(secrets.toml) 양쪽을 지원."""
+    api_key = os.getenv("DART_API_KEY")
+    if api_key:
+        return api_key
+    try:
+        return st.secrets.get("DART_API_KEY")
+    except Exception:
+        return None
+
+
 @st.cache_resource
 def get_client() -> DartClient | None:
-    api_key = os.getenv("DART_API_KEY")
+    api_key = _get_api_key()
     if not api_key:
         return None
     return DartClient(api_key)
