@@ -7,3 +7,5 @@ cache/*.json
 cache/*.zip
 !cache/.gitkeep
 .claude/
+imagegen/output/*
+!imagegen/output/.gitkeep
